@@ -1,0 +1,40 @@
+<div class="title-block">
+  <h3 class="title" *ngIf="isLoaded">
+    <a>
+      <i
+        class="fa fa-arrow-left"
+        style="margin-right: 15px;"
+        (click)="goBack()"
+      ></i>
+    </a>
+    Категория "{{ category.name }}"
+    <span class="sparkline bar"></span>
+  </h3>
+  <div *ngIf="!isLoaded">
+    <smartmarket-loader></smartmarket-loader>
+  </div>
+</div>
+<section class="section">
+
+  <div
+    @fade
+    class="alert alert-{{ message.type }}"
+    *ngIf="message.text"
+  >
+    {{ message.text }}
+  </div>
+
+  <div class="row" *ngIf="isLoaded">
+    <smartmarket-new-main-category (onCurrentSubCategory)="onCurrentSubCategoryHandle($event)" [category]="category"></smartmarket-new-main-category>
+    <smartmarket-new-sub-category (onDeleteSubCategory)="onDeleteSubCategory($event)" (onNewSubCategory)="onNewSubCategory($event)" [subCategory]="currentSubCategory"></smartmarket-new-sub-category>
+  </div>
+
+  <div *ngIf="!isLoaded">
+    <smartmarket-loader [isBig]="true"></smartmarket-loader>
+  </div>
+
+  <smartmarket-modal-sub-category (onModalClose)="onModalClose($event)" (successSubCategory)="onSuccessSubCategory($event)" [currentCategoryId]="category.id" [isNewSubCategoryModal]="isNewSubCategoryModal"></smartmarket-modal-sub-category>
+  <smartmarket-modal-delete-sub-category (onDeleteSubCategory)="deleteSubCategory($event)" (onDeleteSubCategoryClose)="onDeleteSubCategoryClose($event)" [deleteSubCategoryIsOpen]="deleteSubCategoryIsOpen"></smartmarket-modal-delete-sub-category>
+
+</section>
+

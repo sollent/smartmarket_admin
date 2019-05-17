@@ -1,0 +1,76 @@
+<div class="title-block">
+  <h3 class="title">
+    Категории
+    <span class="sparkline bar"></span>
+  </h3>
+  <button
+    type="button"
+    class="btn btn-primary btn-lg create-category"
+    (click)="openModal()"
+  >
+    Создать категорию
+  </button>
+</div>
+
+<div
+  @fade
+  class="alert alert-{{ message.type }}"
+  *ngIf="message.text"
+>
+  {{ message.text }}
+</div>
+
+<div *ngIf="modalIsOpen">
+  <smartmarket-modal-new-category
+    (onModalClose)="closeCategoryModal($event)"
+    (onCategoryAdd)="onCategoryAdd($event)"
+  >
+  </smartmarket-modal-new-category>
+</div>
+
+<ul class="list-group" *ngIf="isLoaded" @fade-fast>
+  <li class="list-group-item" *ngFor="let category of categories">
+    {{ category.name }}
+    <ul class="list-group list-group-flush" *ngIf="category.subCategories">
+      <li class="list-group-item" *ngFor="let subCategory of category.subCategories">
+        {{ subCategory.name }}
+      </li>
+    </ul>
+    <button type="button" class="btn btn-primary edit-button" [routerLink]="['/system/categories/new', category.id]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+    <button type="button" class="btn btn-danger delete-button" (click)="openDeleteCategory(category.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+  </li>
+</ul>
+
+<div *ngIf="!isLoaded">
+  <smartmarket-loader [isBig]="true"></smartmarket-loader>
+</div>
+
+<div class="modal fade in" *ngIf="deleteCategoryIsOpen">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="closeDeleteCategory()">
+          <span>×</span>
+        </button>
+        <h4 class="modal-title">Уверены что хотите удалить категорию?</h4>
+      </div>
+      <div class="modal-body">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="deleteCategory()"
+        >
+          Удалить
+        </button>
+        <button
+          type="submit"
+          class="btn btn-secondary"
+          (click)="closeDeleteCategory()"
+        >
+          Отмена
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

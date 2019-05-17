@@ -1,0 +1,55 @@
+<div class="title-block">
+  <h3 class="title">
+    <a>
+      <i
+              class="fa fa-arrow-left"
+              style="margin-right: 15px;"
+              (click)="goBack()"
+      ></i>
+    </a>
+    Фотогалерея товара
+    <span class="sparkline bar"></span>
+  </h3>
+</div>
+
+<div class="col-md-12 col-create-news" *ngIf="isLoaded">
+  <div class="card">
+    <div class="card-header bordered">
+      <div class="header-block">
+        <h3 class="title">Загрузка фотографий</h3>
+      </div>
+    </div>
+    <div class="card-block">
+      <form>
+        <div class="form-group image-block">
+          <label class="control-label" for="imagePreview">Загрузите изображения</label>
+          <input
+                  id="imagePreview"
+                  type="file"
+                  class="dn"
+                  (change)="onFileUpload($event)"
+                  #input
+                  multiple
+          >
+          <a
+                  (click)="triggerClick()"
+                  class="btn btn-primary upload-image"
+          >
+            Загрузить
+          </a>
+          <div class="image-preview" *ngIf="imagesPreview.length > 0">
+            <img *ngFor="let image of imagesPreview" [src]="image" alt="">
+          </div>
+        </div>
+        <button
+                type="submit"
+                class="btn btn-primary save-images"
+                (click)="saveImages()"
+                [disabled]="images.length === 0"
+        >
+          Сохранить
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

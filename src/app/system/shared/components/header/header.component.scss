@@ -1,0 +1,32 @@
+.menu-button {
+  background: transparent;
+  margin-right: 6px;
+  i {
+    font-size: 1.5rem;
+    color: #4f5f6fbf;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  header.header {
+    position: fixed;
+  }
+  .menu-button {
+    margin-top: 6px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .menu-button {
+    i {
+      font-size: 1.3rem;
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  .menu-button {
+    i {
+      font-size: 1.15rem;
+    }
+  }
+}

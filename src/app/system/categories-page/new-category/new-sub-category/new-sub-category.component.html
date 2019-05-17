@@ -1,0 +1,106 @@
+<div class="col-md-6 col-sm-12">
+  <button *ngIf="!subCategory" type="button" class="btn btn-primary new-sub-category-big" (click)="newSubCategoryAction()">Новая подкатегория</button>
+  <div class="card" *ngIf="subCategory">
+    <div class="card-header bordered">
+      <div class="header-block">
+        <h3 class="title">Редактировать подкатегорию</h3>
+      </div>
+      <button type="button" class="btn btn-primary new-sub-category" (click)="newSubCategoryAction()">Новая</button>
+    </div>
+    <div class="card-block">
+      <div
+        @fade
+        class="alert alert-{{ message.type }}"
+        *ngIf="message.text"
+      >
+        {{ message.text }}
+      </div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div
+          class="form-group"
+          [ngClass]="{ 'has-error': form.get('name').invalid && form.get('name').touched }"
+        >
+          <label class="control-label" for="category-name">Введите название</label>
+          <input
+            type="text"
+            id="category-name"
+            class="form-control"
+            formControlName="name"
+            [value]="subCategory.name"
+          >
+          <span
+            class="form-help-text"
+            *ngIf="form.get('name').invalid && form.get('name').touched"
+          >
+                <span *ngIf="form.get('name')['errors']['required']">Название подкатегории не может быть пустым</span>
+                <span *ngIf="form.get('name')['errors']['minlength']">
+                  Название подкатегории должно содержать хотя бы {{ form.get('name')['errors']['minlength']['requiredLength'] }} символа. Сейчас {{ form.get('name')['errors']['minlength']['actualLength'] }}.
+                </span>
+              </span>
+        </div>
+        <div
+          class="form-group"
+          [ngClass]="{ 'has-error': form.get('slug').invalid && form.get('slug').touched }"
+        >
+          <label class="control-label" for="category-slug">Введите slug</label>
+          <input
+            type="text"
+            id="category-slug"
+            class="form-control"
+            formControlName="slug"
+            [value]="subCategory.slug"
+          >
+          <span
+            class="form-help-text"
+            *ngIf="form.get('slug').invalid && form.get('slug').touched"
+          >
+                <span *ngIf="form.get('slug')['errors']['required']">Slug не может быть пустым</span>
+                <span *ngIf="form.get('slug')['errors']['minlength']">
+                  Slug должен содержать хотя бы {{ form.get('slug')['errors']['minlength']['requiredLength'] }} символа. Сейчас {{ form.get('slug')['errors']['minlength']['actualLength'] }}.
+                </span>
+              </span>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [ngModelOptions]="{standalone: true}"
+                 [(ngModel)]="addSeoInformation" id="seoInformationCheckbox">
+          <label class="form-check-label" for="seoInformationCheckbox">
+            Добавить seo информацию
+          </label>
+        </div>
+        <div class="seo-information" *ngIf="addSeoInformation">
+          <div class="form-group">
+            <label class="control-label" for="seo-title">Введите title</label>
+            <input
+                    type="text"
+                    id="seo-title"
+                    class="form-control"
+                    formControlName="seoTitle"
+            >
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="seo-description">Введите description</label>
+            <input
+                    type="text"
+                    id="seo-description"
+                    class="form-control"
+                    formControlName="seoDescription"
+            >
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary save-button"
+          [disabled]="form.invalid"
+        >
+          Сохранить
+        </button>
+        <a
+          class="btn btn-danger remove-button"
+          (click)="deleteSubCategory()"
+        >
+          Удалить
+        </a>
+      </form>
+    </div>
+  </div>
+</div>

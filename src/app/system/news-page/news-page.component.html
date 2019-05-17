@@ -1,0 +1,53 @@
+<div class="title-block">
+  <h3 class="title pull-left">
+    Новости <span class="sparkline bar"></span>
+  </h3>
+  <div class="pull-right">
+      <a [routerLink]="['/system/news', 'create']" type="button" class="btn btn-primary btn-lg create-news">Создать новость</a>
+      <button class="btn-sm btn btn-primary-outline" (click)="onRefresh()">
+      <i class="fa fa-refresh"></i>
+    </button>
+  </div>
+</div>
+<div
+        @fade
+        class="alert alert-{{ message.type }}"
+        *ngIf="message.text"
+>
+    {{ message.text }}
+</div>
+<section class="section">
+  <div class="row">
+      <!--Search bar and filters-->
+
+      <!--<div class="col-md-12">-->
+          <!--<div class="card">-->
+              <!--<div class="card-header bordered">-->
+                  <!--<div class="form-inline m-l-1">-->
+                      <!--<div class="form-group">-->
+                          <!--<input type="email" class="form-control" placeholder="Поиск...">-->
+                      <!--</div>-->
+                      <!--<div class="btn-group">-->
+                          <!--<button type="button" class="btn btn-secondary dropdown-toggle ">-->
+                              <!--Параметр-->
+                          <!--</button>-->
+                          <!--<div class="dropdown-menu">-->
+                              <!--<a class="dropdown-item" href="#">Action</a>-->
+                              <!--<a class="dropdown-item" href="#">Another action</a>-->
+                              <!--<a class="dropdown-item" href="#">Something else here</a>-->
+                              <!--<div class="dropdown-divider"></div>-->
+                              <!--<a class="dropdown-item" href="#">Separated link</a>-->
+                          <!--</div>-->
+                      <!--</div>-->
+                  <!--</div>-->
+              <!--</div>-->
+          <!--</div>-->
+      <!--</div>-->
+      <div *ngIf="isLoaded">
+        <smartmarket-news-list [news]="news"></smartmarket-news-list>
+      </div>
+      <div *ngIf="!isLoaded">
+        <smartmarket-loader [isBig]="true"></smartmarket-loader>
+      </div>
+  </div>
+</section>

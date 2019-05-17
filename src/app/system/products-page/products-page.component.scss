@@ -1,0 +1,26 @@
+.title-block {
+  position: relative;
+  button.create-product {
+    position: absolute;
+    right: 0;
+    top: -9px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .title-block {
+    h3.title {
+      font-size: 1.2rem;
+    }
+    button.create-product {
+      width: 130px;
+      padding: 0;
+      top: -5px;
+      height: 32px;
+      right: 0;
+      font-size: 0.85rem;
+    }
+  }
+}

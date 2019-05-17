@@ -1,0 +1,47 @@
+<div class="title-block">
+  <h3 class="title" *ngIf="isLoaded">
+    Cтраница "{{ pageTitle }}"
+    <span class="sparkline bar"></span>
+  </h3>
+  <div *ngIf="!isLoaded">
+    <smartmarket-loader></smartmarket-loader>
+  </div>
+</div>
+<div
+        @fade
+        class="alert alert-{{ message.type }}"
+        *ngIf="message.text"
+>
+  {{ message.text }}
+</div>
+<div class="col-md-12 col-create-news" *ngIf="isLoaded">
+  <div class="card">
+    <div class="card-block">
+      <form>
+        <div class="form-group">
+          <label class="control-label" for="title">Введите заголовок</label>
+          <input
+                  type="text"
+                  id="title"
+                  class="form-control"
+                  [(ngModel)]="pageTitle"
+                  [ngModelOptions]="{standalone: true}"
+          >
+        </div>
+        <ckeditor [(ngModel)]="pageContent"  [ngModelOptions]="{standalone: true}" [editor]="editor"></ckeditor>
+        <button
+                type="submit"
+                class="btn btn-primary"
+                (click)="savePage()"
+                [disabled]="!pageTitle || !pageContent"
+        >
+          Добавить
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isLoaded">
+  <smartmarket-loader [isBig]="true"></smartmarket-loader>
+</div>

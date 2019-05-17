@@ -1,0 +1,289 @@
+<div class="title-block">
+    <h3 class="title">
+        <a>
+            <i
+                    class="fa fa-arrow-left"
+                    style="margin-right: 15px;"
+                    (click)="goBack()"
+            ></i>
+        </a>
+        Новый товар
+        <span class="sparkline bar"></span>
+    </h3>
+    <div class="product-buttons">
+
+        <!--Product article-->
+
+        <button
+                *ngIf="!articleIsComplete"
+                type="button"
+                class="btn btn-primary"
+                (click)="onArticleModalOpen()"
+        >
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </button>
+        <button
+                *ngIf="articleIsComplete"
+                type="button"
+                class="btn btn-primary complete-status"
+                (click)="onArticleEditModalOpen()"
+        >
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </button>
+
+        <!--Product photos-->
+
+        <button
+                *ngIf="!photosIsComplete"
+                [routerLink]="['/system/product/new/photos', product.id]"
+                type="button"
+                class="btn btn-primary"
+        >
+            <i class="fa fa-picture-o" aria-hidden="true"></i>
+        </button>
+        <button
+                *ngIf="photosIsComplete"
+                [routerLink]="['/system/product/edit/photos', product.id]"
+                type="button"
+                class="btn btn-primary complete-status"
+        >
+            <i class="fa fa-picture-o" aria-hidden="true"></i>
+        </button>
+
+        <!--Product characteristics-->
+
+        <button
+                [routerLink]="['/system/product/new/characteristics', product.id]"
+                type="button"
+                class="btn btn-primary"
+                [ngClass]="{'complete-status': characteristicsIsComplete}"
+        >
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+<div
+        @fade
+        class="alert alert-{{ message.type }}"
+        *ngIf="message.text"
+>
+    {{ message.text }}
+</div>
+<div class="col-md-12 col-create-news" *ngIf="isLoaded">
+    <div class="card">
+        <div class="card-header bordered">
+            <div class="header-block">
+                <h3 class="title">Редактировать продукт</h3>
+            </div>
+        </div>
+        <div class="card-block">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="form-group" [ngClass]="{'has-error': form.get('name').invalid && form.get('name').touched}">
+                    <label class="control-label" for="name">Введите название</label>
+                    <input
+                            type="text"
+                            id="name"
+                            class="form-control"
+                            formControlName="name"
+                    >
+                    <span class="form-help-text" *ngIf="form.get('name').invalid && form.get('name').touched">
+            <span *ngIf="form.get('name')['errors']['required']">
+              Необходимо заполнить название
+            </span>
+            <span *ngIf="form.get('name')['errors']['minlength']">
+              Минимальное кол-во символов {{ form.get('name')['errors']['minlength']['requiredLength'] }}. Сейчас {{ form.get('name')['errors']['minlength']['actualLength'] }}
+            </span>
+          </span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="category">Выберите категорию</label>
+                    <select
+                            class="form-control"
+                            id="category"
+                            formControlName="category_id"
+                            (change)="onSelectCategory($event)"
+                    >
+                        <option *ngFor="let category of categories" [value]="category.id">
+                            {{ category.name }}
+                        </option>
+                    </select>
+                    <span class="form-help-text category-warning" *ngIf="form.get('category_id').invalid">
+            <span *ngIf="form.get('category_id')['errors']['required']">
+              Необходимо выбрать категорию
+            </span>
+          </span>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [ngModelOptions]="{standalone: true}"
+                           [(ngModel)]="addSubCategory" id="addSubCategory">
+                    <label class="form-check-label" for="addSubCategory">
+                        Добавить подкатегорию
+                    </label>
+                </div>
+                <div class="form-group" *ngIf="addSubCategory">
+                    <label class="control-label" for="subCategory">Выберите подкатегорию</label>
+                    <select
+                            class="form-control"
+                            id="subCategory"
+                            formControlName="subCategory_id"
+                    >
+                        <option *ngFor="let subCategory of subCategories" [value]="subCategory.id">
+                            {{ subCategory.name }}
+                        </option>
+                    </select>
+                    <span class="form-help-text category-warning">
+          </span>
+                </div>
+                <div class="form-group image-block">
+                    <label class="control-label" for="imagePreview">Загрузите превью изображение</label>
+                    <input
+                            id="imagePreview"
+                            type="file"
+                            class="dn"
+                            (change)="onFileUpload($event)"
+                            #input
+                    >
+                    <a
+                            (click)="triggerClick()"
+                            class="btn btn-primary upload-image"
+                    >
+                        Загрузить картинку
+                    </a>
+                    <div class="image-preview">
+                        <img *ngIf="imagePreview" [src]="imagePreview" alt="">
+                    </div>
+                </div>
+                <div class="form-group"
+                     [ngClass]="{'has-error': form.get('shortDescription').invalid && form.get('shortDescription').touched}">
+                    <label class="control-label" for="content">Краткое описание</label>
+                    <textarea
+                            id="content"
+                            class="form-control short-description-textarea"
+                            formControlName="shortDescription"
+                    >
+          </textarea>
+                    <span class="form-help-text"
+                          *ngIf="form.get('shortDescription').invalid && form.get('shortDescription').touched">
+            <span *ngIf="form.get('shortDescription')['errors']['required']">
+              Краткое описание не может быть пустым
+            </span>
+            <span *ngIf="form.get('shortDescription')['errors']['minlength']">
+              Минимальная длина заголовка {{ form.get('shortDescription')['errors']['minlength']['requiredLength'] }}. Сейчас {{ form.get('shortDescription')['errors']['minlength']['actualLength'] }}.
+            </span>
+          </span>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [ngModelOptions]="{standalone: true}"
+                           [(ngModel)]="addBonuses" id="discountCheckbox">
+                    <label class="form-check-label" for="discountCheckbox">
+                        Добавить скидку
+                    </label>
+                </div>
+                <div class="form-group" *ngIf="addBonuses">
+                    <label class="control-label" for="discountPercent">Введите процент скидки</label>
+                    <input
+                            type="number"
+                            id="discountPercent"
+                            class="form-control"
+                            formControlName="discountPercentValue"
+                    >
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="price">Введите цену (BYN)</label>
+                    <input
+                            type="number"
+                            id="price"
+                            class="form-control"
+                            formControlName="price"
+                    >
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" [(ngModel)]="addPreOrder" [ngModelOptions]="{standalone: true}"
+                           type="checkbox" value="" id="preOrder">
+                    <label class="form-check-label" for="preOrder">
+                        Предзаказ
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [ngModelOptions]="{standalone: true}"
+                           [(ngModel)]="addSeoInformation" id="seoInformationCheckbox">
+                    <label class="form-check-label" for="seoInformationCheckbox">
+                        Добавить seo информацию
+                    </label>
+                </div>
+                <div class="seo-information" *ngIf="addSeoInformation">
+                    <div class="form-group">
+                        <label class="control-label" for="seo-title">Введите title</label>
+                        <input
+                                type="text"
+                                id="seo-title"
+                                class="form-control"
+                                formControlName="seoTitle"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="seo-description">Введите description</label>
+                        <input
+                                type="text"
+                                id="seo-description"
+                                class="form-control"
+                                formControlName="seoDescription"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="seo-description">Введите alt для изображений</label>
+                        <input
+                                type="text"
+                                id="seo-images-alt"
+                                class="form-control"
+                                formControlName="seoImagesAlt"
+                        >
+                    </div>
+                </div>
+                <div class="form-check">
+                    <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="isAvailable"
+                            formControlName="available"
+                    >
+                    <label class="form-check-label" for="isAvailable">
+                        Опубликовать
+                    </label>
+                </div>
+                <button
+                        type="submit"
+                        class="btn btn-primary"
+                        [disabled]="form.invalid"
+                >
+                    Сохранить
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<smartmarket-modal-product-article
+        *ngIf="isLoaded"
+        [articleModalOpen]="articleModalOpen"
+        (onCloseArticleModal)="onCloseArticleModal()"
+        [currentProductId]="currentProductId"
+        (onCloseArticleModalWithMessage)="onCloseArticleModalWithMessage($event)"
+>
+
+</smartmarket-modal-product-article>
+
+<smartmarket-modal-edit-product-article
+        *ngIf="isLoaded"
+        [articleModalEditOpen]="articleModalEditOpen"
+        (onCloseArticleEditModal)="onCloseArticleEditModal()"
+        [currentProductId]="currentProductId"
+        (onCloseArticleEditModalWithMessage)="onCloseArticleEditModalWithMessage($event)"
+>
+
+</smartmarket-modal-edit-product-article>
+
+<div *ngIf="!isLoaded">
+    <smartmarket-loader [isBig]="true"></smartmarket-loader>
+</div>
+

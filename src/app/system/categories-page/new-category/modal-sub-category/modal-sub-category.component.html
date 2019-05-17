@@ -1,0 +1,92 @@
+<div class="modal fade in" *ngIf="openModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="closeModal()">
+          <span>×</span>
+        </button>
+        <h4 class="modal-title">Новая подкатегория</h4>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div
+            class="form-group"
+            [ngClass]="{ 'has-error': form.get('name').invalid && form.get('name').touched }"
+          >
+            <label class="control-label" for="category-name">Введите название</label>
+            <input
+              type="text"
+              id="category-name"
+              class="form-control"
+              formControlName="name"
+            >
+            <span
+              class="form-help-text"
+              *ngIf="form.get('name').invalid && form.get('name').touched"
+            >
+                <span *ngIf="form.get('name')['errors']['required']">Название категории не может быть пустым</span>
+                <span *ngIf="form.get('name')['errors']['minlength']">
+                  Название категории должно содержать хотя бы {{ form.get('name')['errors']['minlength']['requiredLength'] }} символа. Сейчас {{ form.get('name')['errors']['minlength']['actualLength'] }}.
+                </span>
+              </span>
+          </div>
+          <div
+            class="form-group"
+            [ngClass]="{ 'has-error': form.get('slug').invalid && form.get('slug').touched }"
+          >
+            <label class="control-label" for="category-slug">Введите slug</label>
+            <input
+              type="text"
+              id="category-slug"
+              class="form-control"
+              formControlName="slug"
+            >
+            <span
+              class="form-help-text"
+              *ngIf="form.get('slug').invalid && form.get('slug').touched"
+            >
+                <span *ngIf="form.get('slug')['errors']['required']">Slug не может быть пустым</span>
+                <span *ngIf="form.get('slug')['errors']['minlength']">
+                  Slug должен содержать хотя бы {{ form.get('slug')['errors']['minlength']['requiredLength'] }} символа. Сейчас {{ form.get('slug')['errors']['minlength']['actualLength'] }}.
+                </span>
+              </span>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="addSeoInformation" id="seoInformationCheckboxForNew">
+            <label class="form-check-label" for="seoInformationCheckboxForNew">
+              Добавить seo информацию
+            </label>
+          </div>
+          <div class="seo-information" *ngIf="addSeoInformation">
+            <div class="form-group">
+              <label class="control-label" for="seo-title">Введите title</label>
+              <input
+                      type="text"
+                      id="seo-title"
+                      class="form-control"
+                      formControlName="seoTitle"
+              >
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="seo-description">Введите description</label>
+              <textarea
+                      type="text"
+                      id="seo-description"
+                      class="form-control"
+                      formControlName="seoDescription"
+              ></textarea>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="form.invalid"
+          >
+            Создать
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

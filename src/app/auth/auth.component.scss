@@ -1,0 +1,44 @@
+.auth {
+  background: linear-gradient(to bottom right, #a1b2b9, white) !important;
+  .card {
+    box-shadow: 0 25px 40px rgba(0, 0, 0, 0.09);
+  }
+  .site-logo {
+    position: absolute;
+    top: 13px;
+    left: 12%;
+    img {
+      width: 60px;
+    }
+  }
+  .auth-title {
+    color: #9aadb3;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .auth {
+    .site-logo {
+      top: 17px;
+      left: 12%;
+      img {
+        width: 40px;
+      }
+    }
+    .auth-title {
+      margin-left: 15%;
+      width: 60%;
+      font-size: 1.35rem;
+      color: #9aadb3;
+    }
+  }
+}
+@media screen and (max-width: 600px){
+  .auth {
+    .auth-title {
+      margin-left: 24%;
+      width: 60%;
+    }
+  }
+}
+

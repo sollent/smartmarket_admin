@@ -1,0 +1,23 @@
+a.create-news {
+  margin-right: 15px;
+  height: 40px;
+  font-size: 1.2rem;
+  padding: 6px 20px;
+}
+
+@media screen and (max-width: 600px){
+  .title-block {
+    h3.title {
+      font-size: 1.15rem;
+      margin: 8px 0 0 10px;
+    }
+  }
+  a.create-news {
+    width: 130px;
+    padding: 7px;
+    top: -5px;
+    height: 32px;
+    right: 0;
+    font-size: 0.75rem;
+  }
+}

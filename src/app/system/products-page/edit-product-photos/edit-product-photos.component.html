@@ -1,0 +1,63 @@
+<div class="title-block">
+  <h3 class="title">
+    <a>
+      <i
+              class="fa fa-arrow-left"
+              style="margin-right: 15px;"
+              (click)="goBack()"
+      ></i>
+    </a>
+    Редактирование фотогалереи товара
+    <span class="sparkline bar"></span>
+  </h3>
+</div>
+
+<div class="col-md-12 col-create-news" *ngIf="isLoaded">
+  <div class="card">
+    <div class="card-header bordered">
+      <div class="header-block">
+        <h3 class="title">Загрузка фотографий</h3>
+      </div>
+    </div>
+    <div class="card-block">
+      <form>
+        <div class="form-group image-block">
+          <label class="control-label" for="imagePreview">Загрузите изображения</label>
+          <input
+                  id="imagePreview"
+                  type="file"
+                  class="dn"
+                  (change)="onFileUpload($event)"
+                  #input
+                  multiple
+          >
+          <a
+                  (click)="triggerClick()"
+                  class="btn btn-primary upload-image"
+          >
+            Загрузить
+          </a>
+          <div class="image-preview" *ngIf="imagesPreview.length > 0">
+            <div *ngFor="let image of imagesPreview" class="image-wrapper">
+              <img [src]="image.type === 'local' ? image.image : imagesSource + image.image " alt="">
+              <button class="btn btn-primary delete-image" (click)="deleteImage(image)">
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button
+                type="submit"
+                class="btn btn-primary save-images"
+                (click)="saveImages()"
+        >
+          Сохранить
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isLoaded">
+  <smartmarket-loader [isBig]="true"></smartmarket-loader>
+</div>

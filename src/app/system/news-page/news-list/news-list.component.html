@@ -1,0 +1,31 @@
+<div class="col col-xs-12 col-sm-12" *ngFor="let article of news">
+  <div class="card" @fade-fast>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-3 col-md-3 hidden-sm-down news-image">
+          <img src="{{ imageSource + article.previewImage }}" alt="">
+        </div>
+        <div class="col-lg-9 col-md-9 news-content">
+          <div class="news-caption">
+            <h5 class="card-title">
+              {{ article.title }}
+            </h5>
+          </div>
+          <div class="news-short-description">
+            <p>{{ article.shortDescription }}</p>
+          </div>
+          <div class="news-created-at">
+            <h6 class="card-subtitle mb-2 text-muted">{{ article.createdAt | date }}</h6>
+          </div>
+          <div class="news-likes">
+            <span class="badge badge-pill badge-secondary">{{ article.likes }} likes</span>
+          </div>
+          <div class="edit-button">
+            <a type="button" class="btn btn-primary" [routerLink]="['/system/news/edit', article.id]">Редактировать</a>
+          </div>
+          <span class="badge badge-pill badge-secondary news-category">{{ article.category.name }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

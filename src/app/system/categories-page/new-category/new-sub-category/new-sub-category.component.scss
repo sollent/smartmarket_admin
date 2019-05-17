@@ -1,0 +1,62 @@
+a.remove-button {
+  margin-left: 4px;
+}
+
+.form-check {
+  position: relative;
+  padding: 10px 10px 15px 0;
+  input {
+    height: 20px;
+    width: 30px;
+  }
+  label {
+    position: absolute;
+    top: 8px;
+    margin-left: 7px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header-block {
+    h3.title {
+      font-size:  0.9rem;
+    }
+  }
+  form {
+    .form-group {
+      label.control-label {
+        font-size:  0.9rem;
+      }
+      select {
+        font-size:  0.9rem;
+      }
+      input {
+        font-size:  0.9rem;
+      }
+    }
+    button.save-button {
+      font-size: 0.9rem;
+    }
+    a.remove-button {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+button.new-sub-category {
+  position: absolute;
+  right: 10px;
+  width: 73px;
+  background: #4CAF50;
+  border: #4CAF50;
+  font-size: 0.85rem;
+}
+button.new-sub-category-big {
+  position: absolute;
+  right: 10px;
+  width: 96%;
+  height: 42px;
+  font-size: 1.0rem;
+  background: #4CAF50;
+  border: #4CAF50;
+}

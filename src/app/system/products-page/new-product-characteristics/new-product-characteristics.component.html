@@ -1,0 +1,40 @@
+<div class="title-block">
+  <h3 class="title">
+    <a>
+      <i
+              class="fa fa-arrow-left"
+              style="margin-right: 15px;"
+              (click)="goBack()"
+      ></i>
+    </a>
+    Новые характеристики
+    <span class="sparkline bar"></span>
+  </h3>
+</div>
+<form>
+  <div class="form-row">
+    <div class="main-char row">
+      <div class="col-lg-10 col-md-12">
+        <input type="text" class="form-control" placeholder="Введите название секции" #mainInput>
+      </div>
+      <div class="col-lg-2 col-md-12">
+        <button type="button" (click)="createMainChar(mainInput)" *ngIf="!mainChar" class="btn btn-primary create-char">Создать</button>
+        <button type="button"  *ngIf="mainChar" class="btn btn-primary only-edit create-char">Изменить</button>
+      </div>
+    </div>
+    <div class="child-chars" *ngIf="mainChar">
+      <div class="child-char row" *ngFor="let childInput of childInputs">
+        <div class="col-lg-5">
+          <input type="text" class="form-control" placeholder="Название" #childKey>
+        </div>
+        <div class="col-lg-5">
+          <input type="text" class="form-control" placeholder="Значение" #childValue>
+        </div>
+        <div class="col-lg-2">
+          <button type="button" (click)="addChildChar(childKey, childValue, addButton)" #addButton class="btn btn-primary create-char">Добавить</button>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary btn-lg btn-block save-characteristics" (click)="saveCharacteristics()">Сохранить характеристики</button>
+  </div>
+</form>

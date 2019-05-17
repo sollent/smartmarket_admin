@@ -1,0 +1,66 @@
+.dn {
+  display: none;
+}
+.image-preview {
+  width: 100%;
+  img {
+    width: 100%;
+  }
+}
+
+.image-wrapper {
+  position: relative;
+  width: 33%;
+  display: inline-block;
+}
+
+.upload-image {
+  display: block;
+}
+
+.delete-image {
+  position: absolute;
+  right: 0;
+  top: 0;
+  i {
+    color: white;
+    font-size: 1.5rem;
+  }
+  padding: 10px;
+  border: none;
+  background: #cecece;
+  width: 50px;
+}
+
+@media screen and (max-width: 600px) {
+  .title-block {
+    h3.title {
+      font-size: 1rem;
+    }
+  }
+  .header-block {
+    h3.title {
+      font-size: 0.9rem;
+    }
+  }
+  .form-group {
+    label.control-label {
+      font-size: 0.8rem;
+    }
+  }
+  .upload-image {
+    font-size: 0.8rem;
+  }
+  .save-images {
+    font-size: 0.8rem;
+    width: 100%;
+  }
+  .delete-image {
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    i {
+      font-size: 1rem;
+    }
+  }
+}

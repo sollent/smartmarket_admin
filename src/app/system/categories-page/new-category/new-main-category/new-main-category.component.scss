@@ -1,0 +1,23 @@
+@media screen and (max-width: 600px) {
+  .header-block {
+    h3.title {
+      font-size:  0.9rem;
+    }
+  }
+  form {
+    .form-group {
+      label.control-label {
+        font-size:  0.9rem;
+      }
+      select {
+        font-size:  0.9rem;
+      }
+      input {
+        font-size:  0.9rem;
+      }
+    }
+    button.save-button {
+      font-size: 0.9rem;
+    }
+  }
+}

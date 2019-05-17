@@ -1,0 +1,37 @@
+.sub-menu {
+  height: 100% !important;
+  li a {
+    padding-left: 44px;
+  }
+}
+nav.menu {
+  ul.metismenu {
+    li {
+      position: relative;
+      a {
+        i.arrow-down {
+          position: absolute !important;
+          top: 35% !important;
+          right: 10% !important;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  aside.sidebar {
+    &.opened {
+      left: 0 !important;
+    }
+  }
+}
+
+.close-menu-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: transparent;
+  margin: 0 4px 0 0;
+  font-size: 1.5rem;
+}

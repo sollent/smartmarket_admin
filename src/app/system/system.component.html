@@ -1,0 +1,13 @@
+<div class="main-wrapper">
+  <div class="app">
+
+    <smartmarket-header (onShowSidebar)="onShowSidebar()"></smartmarket-header>
+
+    <smartmarket-sidebar (onCloseSidebar)="onCloseSidebar()" [sidebarIsOpen]="sidebarIsOpen"></smartmarket-sidebar>
+
+    <article class="content dashboard-page">
+      <router-outlet></router-outlet>
+    </article>
+
+  </div>
+</div>

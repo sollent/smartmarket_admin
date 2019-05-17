@@ -1,0 +1,66 @@
+<div class="title-block">
+  <h3 class="title" *ngIf="isLoaded">
+    <a>
+      <i
+        class="fa fa-arrow-left"
+        style="margin-right: 15px;"
+        (click)="goBack()"
+      ></i>
+    </a>
+    Страница заказа № {{ order.id }}
+    <span class="sparkline bar"></span>
+  </h3>
+  <div *ngIf="!isLoaded">
+    <smartmarket-loader></smartmarket-loader>
+  </div>
+</div>
+<section class="section">
+  <div class="row">
+    <div class="container">
+      <div class="col-lg-12">
+        <div class="card" *ngIf="isLoaded" @fade-fast>
+          <div class="card-body order-card">
+            <h5 class="card-title">{{ order.clientInfo.firstName ? order.clientInfo.firstName : order.clientInfo.fullName }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">г.{{ order.location.city }}, {{ order.location.street }}, д.{{ order.location.homeNumber }}, кв.{{ order.location.apartmentNumber }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">{{ order.clientInfo.phoneNumber }}</h6>
+            <div class="ordered-products">
+              <div
+                class="product-info"
+                *ngFor="let product of order.products"
+              >
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 product-image">
+                    <img src="{{ imageSource + product.previewPhoto }}" alt="">
+                  </div>
+                  <div class="col-lg-8 col-md-8 product-details">
+                    <h5 class="card-subtitle mb-2 text-muted">{{ product.name }}<span class="badge badge-pill badge-secondary total-sum-badge product-price">{{ product.price }} BYN</span></h5>
+                    <p>Кол-во: {{ product.count }}шт, цвет: белый</p>
+                    <a class="card-link">Перейти</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="badge badge-pill badge-secondary delivery-way delivery-city"
+                  *ngIf="order.deliveryWay.name === 'driver'"
+            >
+        По Минску
+      </span>
+            <span class="badge badge-pill badge-secondary delivery-way delivery-post"
+                  *ngIf="order.deliveryWay.name === 'mail'"
+            >
+        По почте
+      </span>
+            <span class="badge badge-pill badge-secondary total-sum-badge">{{ order.totalCost }} BYN</span>
+            <p class="card-text order-date"><small class="text-muted">{{ order.createdAt | date }}</small></p>
+            <span class="badge badge-pill badge-secondary order-status">Новый</span>
+          </div>
+        </div>
+
+        <div *ngIf="!isLoaded">
+          <smartmarket-loader [isBig]="true"></smartmarket-loader>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,25 @@
+.only-edit {
+  background: #8BC34A;
+  border: 1px solid #8BC34A;
+}
+.save-characteristics {
+  margin-top: 15px;
+}
+
+@media screen and (max-width: 600px) {
+  .title-block {
+    h3.title {
+      font-size: 1rem;
+    }
+  }
+  .create-char {
+    width: 100%;
+    font-size: 0.8rem;
+  }
+  .save-characteristics {
+    font-size: 0.9rem;
+  }
+  .child-char {
+    margin-top: 10px;
+  }
+}

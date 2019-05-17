@@ -1,0 +1,42 @@
+<div class="modal fade in" *ngIf="articleModalEditOpen">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="closeModal()">
+          <span>×</span>
+        </button>
+        <h4 class="modal-title">Редактирование статьи для продукта</h4>
+      </div>
+      <div class="modal-body">
+        <form *ngIf="isLoaded">
+          <div class="form-group">
+            <label class="control-label" for="category">Выберите категорию</label>
+            <select
+                    class="form-control"
+                    id="category"
+                    (change)="onSelectOverview($event)"
+                    [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="currentOverviewId"
+            >
+              <option *ngFor="let overview of overviews" [value]="overview.id">
+                {{ overview.title }}
+              </option>
+            </select>
+          </div>
+          <button
+                  type="submit"
+                  class="btn btn-primary"
+                  (click)="saveProductOverview()"
+          >
+            Создать
+          </button>
+        </form>
+
+        <div *ngIf="!isLoaded">
+          <smartmarket-loader></smartmarket-loader>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

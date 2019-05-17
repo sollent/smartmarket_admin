@@ -1,0 +1,36 @@
+<header class="header">
+  <div class="header-block header-block-search">
+    <button
+      type="button"
+      class="btn btn-light menu-button hidden-lg-up"
+      (click)="showSidebar()"
+    >
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+    {{ date | date:'dd.MM.yyyy' }}
+  </div>
+  <div class="header-block header-block-nav">
+    <ul class="nav-profile">
+      <li class="profile dropdown" smartmarketDropwdown>
+        <a
+          class="nav-link dropdown-toggle"
+          role="button"
+        >
+          <span class="name">
+            Здравствуйте, Игорь
+          </span>
+        </a>
+        <div class="dropdown-menu profile-dropdown-menu">
+          <a class="dropdown-item" [routerLink]="['/system', 'setting']"> <i class="fa fa-gear icon"></i>Настройки</a>
+          <div class="dropdown-divider"></div>
+          <a
+            class="dropdown-item"
+            (click)="onLogout()"
+          >
+            <i class="fa fa-power-off icon"></i>Выйти
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</header>

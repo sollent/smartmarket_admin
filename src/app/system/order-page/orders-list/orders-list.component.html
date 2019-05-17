@@ -1,0 +1,38 @@
+<div class="col col-xs-12 col-sm-12">
+  <div class="card" *ngFor="let order of orders" @fade-fast>
+    <div class="card-body order-card">
+      <h5 class="card-title">{{ order.clientInfo.firstName ? order.clientInfo.firstName : order.clientInfo.fullName }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">г.{{ order.location.city }}, {{ order.location.street }}, д.{{ order.location.homeNumber }}, кв.{{ order.location.apartmentNumber }}</h6>
+      <h6 class="card-subtitle mb-2 text-muted">{{ order.clientInfo.phoneNumber }}</h6>
+      <div>
+        <p
+          class="card-text"
+          *ngFor="let product of order.products"
+        >
+          {{ product.name }}, {{ product.count }}шт.
+        </p>
+      </div>
+      <a
+        class="card-link hide-on-small"
+        [routerLink]="['/system/order', order.id]"
+      >Подробнее</a>
+      <span class="badge badge-pill badge-secondary delivery-way delivery-city"
+            *ngIf="order.deliveryWay.name === 'driver'"
+      >
+        По Минску
+      </span>
+      <span class="badge badge-pill badge-secondary delivery-way delivery-post"
+            *ngIf="order.deliveryWay.name === 'mail'"
+      >
+        По почте
+      </span>
+      <span class="badge badge-pill badge-secondary total-sum-badge">{{ order.totalCost }} BYN</span>
+      <a
+        class="card-link show-on-small"
+        [routerLink]="['/system/order', order.id]"
+      >Подробнее</a>
+      <p class="card-text order-date"><small class="text-muted">{{ order.createdAt | date }}</small></p>
+      <span class="badge badge-pill badge-secondary order-status">Новый</span>
+    </div>
+  </div>
+</div>

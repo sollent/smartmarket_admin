@@ -1,0 +1,44 @@
+<div class="col col-xs-12 col-sm-12 col-product" *ngFor="let product of products">
+    <div class="card">
+        <div class="card-body product-card">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 hidden-sm-down product-image">
+                    <img src="{{ imageSource + product.previewPhoto }}" alt="">
+                </div>
+                <h5 class="card-title">{{ product.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Категория: {{ product.category.name }}</h6>
+                <div class="product-short-description">
+                    <p>
+                        {{ product.shortDescription }}
+                    </p>
+                </div>
+                <a
+                        class="card-link hide-on-small edit-product-button"
+                        [routerLink]="['/system/product/edit', product.id]"
+                >
+                    Редактировать
+                </a>
+                <span
+                        class="badge badge-pill badge-secondary delivery-way delivery-city"
+                        [ngClass]="{'not-available': !product.available}"
+                >
+                {{ product.available ? 'Опубликовано' : 'Неопубликовано' }}
+                </span>
+
+
+                <span class="badge badge-pill badge-secondary total-sum-badge">{{ product.price }} BYN</span>
+                <a
+                        class="card-link show-on-small edit-product-button"
+                        [routerLink]="['/system/product/edit', product.id]"
+                >
+                    Редактировать
+                </a>
+                <p class="card-text product-date">
+                    <small class="text-muted">{{ product.createdAt| date }}</small>
+                </p>
+                <span *ngIf="product.productStatus" class="badge badge-pill badge-secondary" [ngClass]="getProductStatusClasses(product)">{{ product.productStatus.title }} {{ product.discountStatus ? ', скидка ' + product.discountPercentValue + '%' : 'Без скидки' }}</span>
+            </div>
+        </div>
+
+    </div>
+</div>

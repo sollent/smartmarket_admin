@@ -1,0 +1,172 @@
+<div class="title-block">
+  <h3 class="title">
+    <a>
+      <i
+              class="fa fa-arrow-left"
+              style="margin-right: 15px;"
+              (click)="goBack()"
+      ></i>
+    </a>
+    Создание новости
+    <span class="sparkline bar"></span>
+  </h3>
+</div>
+<div class="col-md-12 col-create-news">
+  <div class="card">
+    <div class="card-header bordered">
+      <div class="header-block">
+        <h3 class="title">Добавить новость</h3>
+      </div>
+    </div>
+    <div class="card-block">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group" [ngClass]="{'has-error': form.get('title').invalid && form.get('title').touched}">
+          <label class="control-label" for="title">Введите заголовок</label>
+          <input
+                  type="text"
+                  id="title"
+                  class="form-control"
+                  formControlName="title"
+          >
+          <span class="form-help-text" *ngIf="form.get('title').invalid && form.get('title').touched">
+            <span *ngIf="form.get('title')['errors']['required']">
+              Заголовок не может быть пустым
+            </span>
+            <span *ngIf="form.get('title')['errors']['minlength']">
+              Минимальная длина заголовка {{ form.get('title')['errors']['minlength']['requiredLength'] }}. Сейчас {{ form.get('title')['errors']['minlength']['actualLength'] }}.
+            </span>
+          </span>
+        </div>
+        <div class="form-group" [ngClass]="{'has-warning': form.get('category_id').invalid}">
+          <label class="control-label" for="category">Выберите категорию</label>
+          <select
+                  (change)="onSelectCategory($event)"
+                  class="form-control"
+                  id="category"
+                  formControlName="category_id"
+          >
+            <option *ngFor="let category of newsCategories" [value]="category.id">
+              {{ category.name }}
+            </option>
+          </select>
+          <span class="form-help-text category-warning" *ngIf="form.get('category_id').invalid">
+            <span *ngIf="form.get('category_id')['errors']['required']">
+              Необходимо выбрать категорию
+            </span>
+          </span>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="addSubCategory" type="checkbox" value="" id="addSubCategory">
+          <label class="form-check-label" for="addSubCategory">
+            Добавить подкатегорию
+          </label>
+        </div>
+        <div class="form-group" *ngIf="addSubCategory">
+          <label class="control-label" for="subCategory">Выберите подкатегорию</label>
+          <select
+                  class="form-control"
+                  id="subCategory"
+                  formControlName="subCategory_id"
+          >
+            <option *ngFor="let subCategory of newsSubCategories" [value]="subCategory.id">
+              {{ subCategory.name }}
+            </option>
+          </select>
+          <span class="form-help-text category-warning">
+          </span>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" formControlName="main" type="checkbox" value="" id="isMainNews">
+          <label class="form-check-label" for="isMainNews">
+            Основная
+          </label>
+        </div>
+        <div class="form-group image-block">
+          <label class="control-label" for="imagePreview">Загрузите превью изображение</label>
+          <input
+                  id="imagePreview"
+                  type="file"
+                  class="dn"
+                  (change)="onFileUpload($event)"
+                  #input
+          >
+          <a
+                  (click)="triggerClick()"
+                  class="btn btn-primary upload-image"
+          >
+            Загрузить картинку
+          </a>
+          <div class="image-preview">
+            <img *ngIf="imagePreview" [src]="imagePreview" alt="">
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': form.get('shortDescription').invalid && form.get('shortDescription').touched}">
+          <label class="control-label" for="content">Краткое описание</label>
+          <textarea
+                  id="content"
+                  class="form-control short-description-textarea"
+                  formControlName="shortDescription"
+          >
+          </textarea>
+          <span class="form-help-text" *ngIf="form.get('shortDescription').invalid && form.get('shortDescription').touched">
+            <span *ngIf="form.get('shortDescription')['errors']['required']">
+              Заголовок не может быть пустым
+            </span>
+            <span *ngIf="form.get('shortDescription')['errors']['minlength']">
+              Минимальная длина заголовка {{ form.get('shortDescription')['errors']['minlength']['requiredLength'] }}. Сейчас {{ form.get('shortDescription')['errors']['minlength']['actualLength'] }}.
+            </span>
+          </span>
+        </div>
+        <ckeditor [(ngModel)]="newsContent"  [ngModelOptions]="{standalone: true}" [editor]="Editor"></ckeditor>
+        <div class="form-group">
+          <label class="control-label" for="likes">Введите кол-во likes</label>
+          <input
+                  type="number"
+                  id="likes"
+                  class="form-control"
+                  formControlName="likes"
+          >
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="addSeoInformation" type="checkbox" value="" id="seoInformationCheckbox">
+          <label class="form-check-label" for="seoInformationCheckbox">
+            Добавить seo информацию
+          </label>
+        </div>
+        <div class="seo-information" *ngIf="addSeoInformation">
+          <div class="form-group">
+            <label class="control-label" for="seo-title">Введите title</label>
+            <input
+                    type="text"
+                    id="seo-title"
+                    class="form-control"
+                    formControlName="seoTitle"
+            >
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="seo-description">Введите description</label>
+            <input
+                    type="text"
+                    id="seo-description"
+                    class="form-control"
+                    formControlName="seoDescription"
+            >
+          </div>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" formControlName="overview" type="checkbox" value="" id="isOverview">
+          <label class="form-check-label" for="isOverview">
+            Создать как обзор для товара
+          </label>
+        </div>
+        <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="form.invalid"
+        >
+          Добавить
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

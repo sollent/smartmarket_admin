@@ -1,0 +1,67 @@
+.title-block {
+  position: relative;
+  button.create-category {
+    position: absolute;
+    right: 0;
+    top: -9px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+}
+
+.modal.fade.in {
+  background: #000000a8;
+}
+
+.modal.in {
+  display: block;
+}
+
+ul.list-group {
+  button.edit-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+  }
+  button.delete-button {
+    position: absolute;
+    top: 10px;
+    right: 70px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+  }
+  li {
+    position: relative;
+    ul.list-group-flush {
+      margin-top: 10px;
+      li {
+        position: relative;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px){
+  ul.list-group {
+    li {
+      font-size: 0.85rem;
+    }
+  }
+  .title-block {
+    h3.title {
+      font-size: 1.1rem;
+    }
+    button.create-category {
+      width: 150px;
+      top: -14px;
+      right: 0;
+      font-size: 0.75rem;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<div class="title-block">
+  <h3 class="title">
+    Категории новостей
+    <span class="sparkline bar"></span>
+  </h3>
+</div>
+
+<ul class="list-group" *ngIf="isLoaded" @fade-fast>
+  <li class="list-group-item" *ngFor="let category of newsCategories">
+    {{ category.name }}
+    <ul class="list-group list-group-flush" *ngIf="category.subCategories">
+      <li class="list-group-item" *ngFor="let subCategory of category.subCategories">
+        {{ subCategory.name }}
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div *ngIf="!isLoaded">
+  <smartmarket-loader [isBig]="true"></smartmarket-loader>
+</div>

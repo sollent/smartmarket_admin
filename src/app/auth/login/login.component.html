@@ -1,0 +1,60 @@
+<p class="text-xs-center">Войдите для работы</p>
+<div
+  @fade
+  class="alert alert-{{ message.type }}"
+  *ngIf="message.text"
+>
+  {{ message.text }}
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" >
+  <div
+    class="form-group"
+    [ngClass]="{ 'has-error': form.get('username').invalid && form.get('username').touched }"
+  >
+    <label for="username">Username</label>
+    <input
+      type="text"
+      class="form-control underlined"
+      id="username"
+      placeholder="Введите ваш username"
+      formControlName="username"
+    >
+    <span
+      class="form-help-text"
+      *ngIf="form.get('username').invalid && form.get('username').touched"
+    >
+      <span *ngIf="form.get('username')['errors']['required']">Username не может быть пустым.</span>
+    </span>
+  </div>
+  <div
+    class="form-group"
+    [ngClass]="{ 'has-error': form.get('password').invalid && form.get('password').touched }"
+  >
+    <label for="password">Пароль</label>
+    <input
+      type="password"
+      class="form-control underlined"
+      id="password"
+      placeholder="Пароль"
+      formControlName="password"
+    >
+    <span
+      class="form-help-text"
+      *ngIf="form.get('password').invalid && form.get('password').touched"
+    >
+      <span *ngIf="form.get('password')['errors']['required']">Пароль не может быть пустым.</span>
+      <span *ngIf="form.get('password')['errors']['minlength']">
+        Пароль должен быть длины {{ form.get('password')['errors']['minlength']['requiredLength'] }}. Сейчас {{ form.get('password')['errors']['minlength']['actualLength'] }}.
+      </span>
+    </span>
+  </div>
+  <div class="form-group">
+    <button
+      type="submit"
+      class="btn btn-block btn-primary"
+      [disabled]="form.invalid || form.disabled"
+    >
+      Войти
+    </button>
+  </div>
+</form>

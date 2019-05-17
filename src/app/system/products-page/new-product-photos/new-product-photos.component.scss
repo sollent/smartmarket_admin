@@ -1,0 +1,38 @@
+.dn {
+  display: none;
+}
+.image-preview {
+  width: 100%;
+  img {
+    width: 33%;
+  }
+}
+
+.upload-image {
+  display: block;
+}
+
+@media screen and (max-width: 600px) {
+  .title-block {
+    h3.title {
+      font-size: 1rem;
+    }
+  }
+  .header-block {
+    h3.title {
+      font-size: 0.9rem;
+    }
+  }
+  .form-group {
+    label.control-label {
+      font-size: 0.8rem;
+    }
+  }
+  .upload-image {
+    font-size: 0.8rem;
+  }
+  .save-images {
+    font-size: 0.8rem;
+    width: 100%;
+  }
+}

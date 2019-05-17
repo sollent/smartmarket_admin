@@ -1,0 +1,27 @@
+<div class="title-block">
+  <h3 class="title">
+    Товары
+    <span class="sparkline bar"></span>
+  </h3>
+  <button
+    type="button"
+    class="btn btn-primary btn-lg create-product"
+    [routerLink]="['/system/products/new']"
+  >
+    Создать товар
+  </button>
+</div>
+<div
+        @fade
+        class="alert alert-{{ message.type }}"
+        *ngIf="message.text"
+>
+  {{ message.text }}
+</div>
+<div *ngIf="isLoaded">
+  <smartmarket-products-list [products]="products"></smartmarket-products-list>
+</div>
+
+<div *ngIf="!isLoaded">
+  <smartmarket-loader [isBig]="true"></smartmarket-loader>
+</div>

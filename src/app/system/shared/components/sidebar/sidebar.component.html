@@ -1,0 +1,85 @@
+<aside class="sidebar" [ngClass]="{'opened': sidebarIsOpen}">
+  <div class="sidebar-container">
+    <div class="sidebar-header">
+      <div class="brand">
+        <div class="site-logo">
+        </div>
+        Smart market
+      </div>
+      <button
+        type="button"
+        class="btn btn-light close-menu-button hidden-lg-up"
+        (click)="closeSidebar()"
+      >
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+    <nav class="menu">
+      <ul class="nav metismenu">
+        <li routerLinkActive="active" (click)="closeSidebar()">
+          <a [routerLink]="['/system', 'order']"> <i class="fa fa-list"></i> Заказы </a>
+        </li>
+        <li routerLinkActive="active">
+          <a
+            (click)="productsMenuOpen()"
+          >
+            <i class="fa fa-archive"></i>
+            Ассортимент
+            <i class="fa fa-angle-down arrow-down"></i>
+          </a>
+            <ul class="nav sub-menu" *ngIf="productsMenuIsOpen">
+              <li routerLinkActive="active" (click)="closeSidebar()">
+                <a [routerLink]="['/system', 'products']"> <i class="fa fa-shopping-cart"></i> Товары </a>
+              </li>
+              <li routerLinkActive="active" (click)="closeSidebar()">
+                <a [routerLink]="['/system', 'categories']"> <i class="fa fa-server"></i> Категории </a>
+              </li>
+              <li routerLinkActive="active" (click)="closeSidebar()">
+                <a [routerLink]="['/system', 'bonuses']"> <i class="fa fa-database"></i> Акции </a>
+              </li>
+            </ul>
+        </li>
+        <li routerLinkActive="active">
+          <a
+            (click)="newsMenuOpen()"
+          >
+            <i class="fa fa-newspaper-o"></i>
+            Новости
+            <i class="fa fa-angle-down arrow-down"></i>
+          </a>
+          <ul class="nav sub-menu" *ngIf="newsMenuIsOpen">
+            <li routerLinkActive="active" (click)="closeSidebar()">
+              <a [routerLink]="['/system', 'news']"> <i class="fa fa-list-ol"></i> Список новостей </a>
+            </li>
+            <li routerLinkActive="active" (click)="closeSidebar()">
+              <a [routerLink]="['/system', 'news-categories']"> <i class="fa fa-server"></i> Категории </a>
+            </li>
+            <li routerLinkActive="active">
+              <a [routerLink]="['/system', 'bonuses']"> <i class="fa fa-database"></i> Настройки </a>
+            </li>
+          </ul>
+        </li>
+        <li routerLinkActive="active">
+          <a
+            (click)="contentMenuOpen()"
+          >
+            <i class="fa fa-newspaper-o"></i>
+            Контент
+            <i class="fa fa-angle-down arrow-down"></i>
+          </a>
+          <ul class="nav sub-menu" *ngIf="contentMenuIsOpen">
+            <li routerLinkActive="active" (click)="closeSidebar()">
+              <a [routerLink]="['/system/info-page', 'beznal']"> <i class="fa fa-bandcamp" aria-hidden="true"></i> Безнал </a>
+            </li>
+            <li routerLinkActive="active" (click)="closeSidebar()">
+              <a [routerLink]="['/system/info-page', 'credit']"> <i class="fa fa-bandcamp" aria-hidden="true"></i> Кредит  </a>
+            </li>
+          </ul>
+        </li>
+        <li routerLinkActive="active" (click)="closeSidebar()">
+          <a [routerLink]="['/system', 'setting']"> <i class="fa fa-gear"></i> Настройки </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</aside>
